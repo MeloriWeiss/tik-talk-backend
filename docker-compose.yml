@@ -1,0 +1,89 @@
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: nazarov
+      RABBITMQ_DEFAULT_PASS: nazarov
+
+  auth_db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: authdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - auth_data:/var/lib/postgresql/data
+
+  main_db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: maindb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5434:5432"
+    volumes:
+      - main_data:/var/lib/postgresql/data
+
+  chats_db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: chatsdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5435:5432"
+    volumes:
+      - chats_data:/var/lib/postgresql/data
+
+  auth_service:
+    build: ./auth_service
+    volumes:
+      - ./auth_service:/app
+    ports:
+      - "8001:8000"
+    depends_on:
+      - rabbitmq
+      - auth_db
+
+  main_service:
+    build: ./main_service
+    volumes:
+      - ./main_service:/app
+    ports:
+      - "8002:8000"
+    depends_on:
+      - rabbitmq
+      - main_db
+
+  chats_service:
+    build: ./chats_service
+    volumes:
+      - ./chats_service:/app
+    ports:
+      - "8003:8000"
+    depends_on:
+      - rabbitmq
+      - chats_db
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: zentorno.2000@mail.ru
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - auth_db
+      - main_db
+      - chats_db
+
+volumes:
+  auth_data:
+  main_data:
+  chats_data:
