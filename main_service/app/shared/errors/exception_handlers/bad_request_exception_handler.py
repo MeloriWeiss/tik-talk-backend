@@ -1,8 +1,8 @@
 from starlette.requests import Request
 from starlette.responses import JSONResponse
 
-from ..default_response import default_content
-from ..exceptions.bad_request_exception import BadRequestException
+from ....shared.default_response import default_content
+from ....shared.errors.exceptions.bad_request_exception import BadRequestException
 
 
 def register_bad_request_exception_handler(app):

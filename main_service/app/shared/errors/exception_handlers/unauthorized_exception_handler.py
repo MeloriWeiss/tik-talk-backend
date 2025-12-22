@@ -1,8 +1,8 @@
 from starlette.requests import Request
 from starlette.responses import JSONResponse
 
-from ..default_response import default_content
-from ..exceptions.unauthorized_exception import UnauthorizedException
+from ....shared.default_response import default_content
+from ....shared.errors.exceptions.unauthorized_exception import UnauthorizedException
 
 
 def register_unauthorized_exception_handler(app):

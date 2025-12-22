@@ -1,9 +1,8 @@
 import enum
 from datetime import datetime, timezone
 
-from sqlalchemy import Column, Integer, String, Boolean, DateTime, and_, Enum, select, ForeignKey, TIMESTAMP, Table
+from sqlalchemy import Column, Integer, String, Boolean, Enum, ForeignKey, TIMESTAMP, Table
 from sqlalchemy.dialects.postgresql import ARRAY
-from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import relationship
 
 from .base import Base

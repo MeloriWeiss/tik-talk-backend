@@ -6,7 +6,7 @@ from ....database import async_session
 from ....models.models import Account, Author, Post, AuthorType
 from ....schemas.account_schema import ShortAccountSchema
 from ....schemas.post_schema import ShortPostAccountSchema
-from ....shared.exceptions.not_found_exception import NotFoundException
+from ....shared.errors.exceptions.not_found_exception import NotFoundException
 
 
 async def create_account_post(create_post_data: CreatePostDto):

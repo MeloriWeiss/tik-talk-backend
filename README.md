@@ -9,9 +9,15 @@ To launch the application, you need:
 1) Run `docker-compose build` to build containers
 2) Run `docker-compose up` to start containers
 
-## Database preparation
+## Databases preparation
 
-Run the last `4` commands from the `Makefile's` from each microservice directory
+Services, database connections, migrations creation and application, and seeding will be performed `automatically`
+
+## Application management
+
+The main commands for managing microservices are listed in the `Makefile` located in each service's directory
+
+You can execute these commands from `any` directory since the operations are performed within `Docker` containers
 
 ## Using the app
 

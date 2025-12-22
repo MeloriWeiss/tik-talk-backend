@@ -6,7 +6,7 @@ from ....database import async_session
 from ....models.models import Author, Post, AuthorType, Community
 from ....schemas.community_schema import ShortCommunitySchemaAdminless
 from ....schemas.post_schema import ShortPostCommunitySchemaAdminless
-from ....shared.exceptions.not_found_exception import NotFoundException
+from ....shared.errors.exceptions.not_found_exception import NotFoundException
 
 
 async def create_community_post(create_post_data: CreatePostDto):

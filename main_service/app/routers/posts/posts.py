@@ -12,8 +12,8 @@ from ...database import get_async_session
 from ...models.models import Post, Author, Account
 from ...schemas.account_schema import ShortAccountSchema, PostAccountSchemaAuthorless
 from ...schemas.post_schema import ShortPostAccountSchema
-from ...shared.exceptions.bad_request_exception import BadRequestException
-from ...shared.exceptions.not_found_exception import NotFoundException
+from ...shared.errors.exceptions.bad_request_exception import BadRequestException
+from ...shared.errors.exceptions.not_found_exception import NotFoundException
 from ...utils.check_auth import check_auth
 
 posts_router = APIRouter(prefix="/post", tags=["Post"])

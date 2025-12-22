@@ -2,7 +2,7 @@ from starlette.exceptions import HTTPException
 from starlette.requests import Request
 from starlette.responses import JSONResponse
 
-from ..default_response import default_content
+from ....shared.default_response import default_content
 
 
 def register_http_default_exception_handler(app):

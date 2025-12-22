@@ -10,8 +10,8 @@ from .dto.community_create_dto import CommunityCreateDTO
 from ...database import get_async_session
 from ...models.models import Community, Author, AuthorType
 from ...schemas.community_schema import CommunityShema, ShortCommunitySchema, PostCommunitySchemaAuthorless
-from ...shared.exceptions.not_found_exception import NotFoundException
-from ...shared.exceptions.unauthorized_exception import UnauthorizedException
+from ...shared.errors.exceptions.not_found_exception import NotFoundException
+from ...shared.errors.exceptions.unauthorized_exception import UnauthorizedException
 from ...utils.check_auth import check_auth
 
 communities_router = APIRouter(prefix="/community", tags=["Community"])

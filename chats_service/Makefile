@@ -1,8 +1,5 @@
-build:
-	docker-compose bulid
-
-run:
-	docker-compose up
+freeze_deps:
+	pip freeze > requirements.txt
 
 init_migrations:
 	docker exec -it tik-talk-chats_service-1 python -m alembic init app/migrations

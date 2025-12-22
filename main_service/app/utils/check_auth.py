@@ -1,7 +1,7 @@
 from starlette.requests import Request
 
 from ..rabbitmq.call_rpc import call_rpc
-from ..shared.exceptions.unauthorized_exception import UnauthorizedException
+from ..shared.errors.exceptions.unauthorized_exception import UnauthorizedException
 
 
 async def check_auth(request: Request):
@@ -12,7 +12,7 @@ async def check_auth(request: Request):
         raise UnauthorizedException(detail="Unauthorized: missing tokens")
 
     result = await call_rpc(
-        service_queue='auth_service_queue',
+        service_queue='auth_queue',
         message={'action': 'verify_token', 'token': access_token}
     )
 

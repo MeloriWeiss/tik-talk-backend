@@ -9,9 +9,9 @@ from ...routers.auth.dto.login_dto import LoginDto
 from ...models.models import Account, Author, AuthorType
 from ...rabbitmq.call_rpc import call_rpc
 from ...shared.default_response import default_content
-from ...shared.exceptions.bad_request_exception import BadRequestException
-from ...shared.exceptions.not_found_exception import NotFoundException
-from ...shared.exceptions.unauthorized_exception import UnauthorizedException
+from ...shared.errors.exceptions.bad_request_exception import BadRequestException
+from ...shared.errors.exceptions.not_found_exception import NotFoundException
+from ...shared.errors.exceptions.unauthorized_exception import UnauthorizedException
 from ...utils.cookie_utils import set_tokens_cookie, delete_tokens_cookie
 from ...utils.password_hash import get_password_hash, verify_hashed_password
 
@@ -30,7 +30,7 @@ async def login(login_data: LoginDto, response: Response, session: AsyncSession 
         raise NotFoundException(detail="Incorrect password")
 
     result = await call_rpc(
-        service_queue='auth_service_queue',
+        service_queue='auth_queue',
         message={'action': 'login', 'account_id': account.id},
     )
 
@@ -71,7 +71,7 @@ async def register(login_data: LoginDto, response: Response, session: AsyncSessi
         raise BadRequestException(detail="Can't register with this account")
 
     result = await call_rpc(
-        service_queue='auth_service_queue',
+        service_queue='auth_queue',
         message={'action': 'register', 'account_id': new_account.id},
     )
 
@@ -96,7 +96,7 @@ async def logout(request: Request, response: Response):
         raise UnauthorizedException(detail="Unauthorized: missing tokens")
 
     result = await call_rpc(
-        service_queue='auth_service_queue',
+        service_queue='auth_queue',
         message={'action': 'logout', 'token': access_token},
     )
 
@@ -120,7 +120,7 @@ async def refresh(request: Request, response: Response):
         raise UnauthorizedException(detail="Unauthorized: missing tokens")
 
     result = await call_rpc(
-        service_queue='auth_service_queue',
+        service_queue='auth_queue',
         message={'action': 'refresh', 'token': refresh_token},
     )
 

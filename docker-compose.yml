@@ -2,44 +2,50 @@ services:
   rabbitmq:
     image: rabbitmq:3-management
     ports:
-      - "5672:5672"
+      - "${RABBITMQ_PORT}:${RABBITMQ_PORT}"
       - "15672:15672"
     environment:
-      RABBITMQ_DEFAULT_USER: nazarov
-      RABBITMQ_DEFAULT_PASS: nazarov
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASS}
 
   auth_db:
     image: postgres:13
     environment:
-      POSTGRES_DB: authdb
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
       - "5433:5432"
     volumes:
       - auth_data:/var/lib/postgresql/data
+    env_file:
+      - /auth_service/.env
 
   main_db:
     image: postgres:13
     environment:
-      POSTGRES_DB: maindb
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
       - "5434:5432"
     volumes:
       - main_data:/var/lib/postgresql/data
+    env_file:
+      - /main_service/.env
 
-  chats_db:
-    image: postgres:13
-    environment:
-      POSTGRES_DB: chatsdb
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-    ports:
-      - "5435:5432"
-    volumes:
-      - chats_data:/var/lib/postgresql/data
+#  chats_db:
+#    image: postgres:13
+#    environment:
+#      POSTGRES_DB: ${DB_NAME}
+#      POSTGRES_USER: ${DB_USER}
+#      POSTGRES_PASSWORD: ${DB_PASSWORD}
+#    ports:
+#      - "5435:5432"
+#    volumes:
+#      - chats_data:/var/lib/postgresql/data
+#    env_file:
+#      - /chats_service/.env
 
   auth_service:
     build: ./auth_service
@@ -69,19 +75,47 @@ services:
       - "8003:8000"
     depends_on:
       - rabbitmq
-      - chats_db
+      - main_db
+
+  logging_service:
+    build: ./logging_service
+    volumes:
+      - ./logging_service:/app
+    ports:
+      - "8004:8000"
 
   pgadmin:
     image: dpage/pgadmin4
     environment:
-      PGADMIN_DEFAULT_EMAIL: zentorno.2000@mail.ru
-      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
     ports:
       - "5050:80"
     depends_on:
       - auth_db
       - main_db
-      - chats_db
+
+#  loki:
+#    image: grafana/loki:3.6.3
+#    container_name: loki
+#    ports:
+#      - "3100:3100"
+#    command: -config.file=/etc/loki/local-config.yaml
+#    volumes:
+#      - ./logging_service/loki-config.yaml:/etc/loki/local-config.yaml
+#
+#  promtail:
+#    image: grafana/promtail:2.8.2
+#    container_name: promtail
+#    depends_on:
+#      - loki
+#    volumes:
+#      - ./logging_service/promtail-config.yaml:/etc/promtail/config.yaml
+#      - /var/log:/var/log
+#      - /path/to/your/app/logs:/logs # если логируете в файлы
+#    command: -config.file=/etc/promtail/config.yaml
+#    ports:
+#      - "9080:9080"
 
 volumes:
   auth_data:

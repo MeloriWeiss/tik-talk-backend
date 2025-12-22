@@ -7,7 +7,7 @@ from starlette.responses import JSONResponse
 from ...database import get_async_session
 from ...models.models import Account
 from ...schemas.account_schema import AccountSchema, ShortAccountSchema, PostAccountSchemaAuthorless
-from ...shared.exceptions.not_found_exception import NotFoundException
+from ...shared.errors.exceptions.not_found_exception import NotFoundException
 from ...utils.check_auth import check_auth
 
 accounts_router = APIRouter(prefix="/account", tags=["Account"])
