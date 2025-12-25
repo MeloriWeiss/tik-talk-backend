@@ -2,9 +2,9 @@
 
 host="${RABBITMQ_HOST:-tik-talk-rabbitmq-1}"
 port="${RABBITMQ_PORT:-5672}"
-max_attempts=20
+max_attempts=10
 attempt=1
-timeout=5
+timeout=10
 service_prefix="logging_service"
 
 echo "[$service_prefix] Waiting for RabbitMQ at $host:$port..."

@@ -5,8 +5,6 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-RUN echo "Test build" > /build_info.txt
-
 COPY . .
 
 COPY entrypoint.sh /entrypoint.sh

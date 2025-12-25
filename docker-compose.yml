@@ -11,41 +11,35 @@ services:
   auth_db:
     image: postgres:13
     environment:
-      POSTGRES_DB: ${DB_NAME}
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: authdb
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - "5433:5432"
     volumes:
       - auth_data:/var/lib/postgresql/data
-    env_file:
-      - /auth_service/.env
 
   main_db:
     image: postgres:13
     environment:
-      POSTGRES_DB: ${DB_NAME}
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: maindb
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - "5434:5432"
     volumes:
       - main_data:/var/lib/postgresql/data
-    env_file:
-      - /main_service/.env
 
-#  chats_db:
-#    image: postgres:13
-#    environment:
-#      POSTGRES_DB: ${DB_NAME}
-#      POSTGRES_USER: ${DB_USER}
-#      POSTGRES_PASSWORD: ${DB_PASSWORD}
-#    ports:
-#      - "5435:5432"
-#    volumes:
-#      - chats_data:/var/lib/postgresql/data
-#    env_file:
-#      - /chats_service/.env
+  logs_db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: logsdb
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "5435:5432"
+    volumes:
+      - logs_data:/var/lib/postgresql/data
 
   auth_service:
     build: ./auth_service
@@ -67,15 +61,15 @@ services:
       - rabbitmq
       - main_db
 
-  chats_service:
-    build: ./chats_service
-    volumes:
-      - ./chats_service:/app
-    ports:
-      - "8003:8000"
-    depends_on:
-      - rabbitmq
-      - main_db
+#  chats_service:
+#    build: ./chats_service
+#    volumes:
+#      - ./chats_service:/app
+#    ports:
+#      - "8003:8000"
+#    depends_on:
+#      - rabbitmq
+#      - main_db
 
   logging_service:
     build: ./logging_service
@@ -83,6 +77,9 @@ services:
       - ./logging_service:/app
     ports:
       - "8004:8000"
+    depends_on:
+      - rabbitmq
+      - logs_db
 
   pgadmin:
     image: dpage/pgadmin4
@@ -95,29 +92,7 @@ services:
       - auth_db
       - main_db
 
-#  loki:
-#    image: grafana/loki:3.6.3
-#    container_name: loki
-#    ports:
-#      - "3100:3100"
-#    command: -config.file=/etc/loki/local-config.yaml
-#    volumes:
-#      - ./logging_service/loki-config.yaml:/etc/loki/local-config.yaml
-#
-#  promtail:
-#    image: grafana/promtail:2.8.2
-#    container_name: promtail
-#    depends_on:
-#      - loki
-#    volumes:
-#      - ./logging_service/promtail-config.yaml:/etc/promtail/config.yaml
-#      - /var/log:/var/log
-#      - /path/to/your/app/logs:/logs # если логируете в файлы
-#    command: -config.file=/etc/promtail/config.yaml
-#    ports:
-#      - "9080:9080"
-
 volumes:
   auth_data:
   main_data:
-  chats_data:
+  logs_data:
