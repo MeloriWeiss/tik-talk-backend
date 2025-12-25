@@ -1,5 +1,3 @@
-import json
-import logging
 import time
 import uuid
 
@@ -8,22 +6,6 @@ from starlette.requests import Request
 
 from ...utils.send_log import send_log
 
-# logger = logging.getLogger("main_service_logger")
-# logger.setLevel(logging.INFO)
-#
-# class JsonFormatter(logging.Formatter):
-#     def format(self, record):
-#         log_record = {
-#             "timestamp": self.formatTime(record, "%Y-%m-%dT%H:%M:%SZ"),
-#             "level": record.levelname,
-#             "service": "fastapi_app",
-#             "message": record.getMessage()
-#         }
-#         return json.dumps(log_record)
-
-# handler = logging.FileHandler('/app/logs/app.log')
-# handler.setFormatter(JsonFormatter())
-# logger.addHandler(handler)
 
 def register_logging_middleware(app: FastAPI):
     @app.middleware("logging")
@@ -54,10 +36,7 @@ def register_logging_middleware(app: FastAPI):
             "client_ip": request.client.host,
             "message": "Request processed"
         }
-        log_json = json.dumps(log_data)
-        # log_json = json.dumps({"log_data": "log_data"})
-        # logger.info(log_json)
 
-        await send_log(log_json, log_level)
+        await send_log(log_data, "http")
 
         return response

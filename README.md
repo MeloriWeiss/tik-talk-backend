@@ -22,7 +22,5 @@ You can execute these commands from `any` directory since the operations are per
 ## Using the app
 
 1) Go to `http://localhost:15672/` to use RabbitMQ interface
-2) Go to `http://localhost:8001/docs#/` to use `auth_service` Swagger docs
-3) Go to `http://localhost:8002/docs#/` to use `main_service` Swagger docs
-4) Go to `http://localhost:8003/docs#/` to use `chats_service` Swagger docs
-5) Go to `http://localhost:5050` to use `pgAdmin`
+2) Go to `http://localhost:8002/docs#/` to use `main_service` Swagger docs
+3) Go to `http://localhost:5050` to use `pgAdmin`
