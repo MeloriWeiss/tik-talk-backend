@@ -1,5 +1,9 @@
 #!/bin/bash
 
+sed -i 's/\r$//' "$0"
+
+set -x
+
 host="${RABBITMQ_HOST:-tik-talk-rabbitmq-1}"
 port="${RABBITMQ_PORT:-5672}"
 max_attempts=10

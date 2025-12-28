@@ -1,0 +1,111 @@
+{
+  "info": {
+    "_postman_id": "6e5338d7-158e-4762-bd3d-ec174d832e28",
+    "name": "Post",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get posts",
+      "id": "4ca65904-48aa-4dfb-b4a0-deff00502a83",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseMainServiceURL}}/post?account_id=1",
+          "host": [
+            "{{baseMainServiceURL}}"
+          ],
+          "path": [
+            "post"
+          ],
+          "query": [
+            {
+              "key": "account_id",
+              "value": "1",
+              "uuid": "f99b830b-7b4d-417e-a105-31c231723ab1"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get post",
+      "id": "c9aae74c-7b68-438c-b392-6061bfdb5dd7",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseMainServiceURL}}/post/5",
+          "host": [
+            "{{baseMainServiceURL}}"
+          ],
+          "path": [
+            "post",
+            "5"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create post",
+      "id": "df46c077-49c1-43fc-9821-35e6241c90da",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"title\": \"Title ABC\",\r\n    \"content\": \"Content AB344\",\r\n    \"communityId\": 4\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseMainServiceURL}}/post",
+          "host": [
+            "{{baseMainServiceURL}}"
+          ],
+          "path": [
+            "post"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete post",
+      "id": "7e95690e-edf6-47e6-bce4-173386778e09",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseMainServiceURL}}/post/1",
+          "host": [
+            "{{baseMainServiceURL}}"
+          ],
+          "path": [
+            "post",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

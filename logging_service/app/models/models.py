@@ -1,20 +1,22 @@
-from sqlalchemy import Column, Integer, Enum, String, Float
+from datetime import datetime, timezone
+
+from sqlalchemy import Column, Integer, Enum, String, Float, TIMESTAMP
 import enum
 
 from .base import LogsBase
 
 
-class LogType(str, enum.Enum):
-    info = "info"
-    error = "error"
-    critical = "critical"
+class LogLevel(str, enum.Enum):
+    INFO = "info"
+    ERROR = "error"
+    CRITICAL = "critical"
 
 
 class HttpLog(LogsBase):
     __tablename__ = "http_logs"
 
     id = Column(Integer, primary_key=True, index=True)
-    level = Column(Enum(LogType), default=LogType.info)
+    level = Column(Enum(LogLevel), default=LogLevel.INFO)
     timestamp = Column(String)
     service = Column(String)
     request_id = Column(String)
@@ -24,3 +26,5 @@ class HttpLog(LogsBase):
     duration_ms = Column(Float)
     client_ip = Column(String)
     message = Column(String)
+
+    createdAt = Column(TIMESTAMP(timezone=True), default=datetime.now(timezone.utc))

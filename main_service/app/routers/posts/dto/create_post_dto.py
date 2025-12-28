@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 
-class CreatePostDto(BaseModel):
+class CreatePostDTO(BaseModel):
     title: str = "",
     content: str = "",
     authorId: int = None,

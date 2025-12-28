@@ -1,0 +1,65 @@
+{
+  "info": {
+    "_postman_id": "dcb526a0-640b-499b-a2c9-3dfd494624f7",
+    "name": "HTTP logs",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get logs",
+      "id": "e84f3f58-6006-4ae3-a656-1899d8e4ff5b",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8004/logs/http?level=info&service=main_service&page=2&size=10&start_time=2025-12-24T12:00:00&end_time=2025-12-28T12:00:00",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8004",
+          "path": [
+            "logs",
+            "http"
+          ],
+          "query": [
+            {
+              "key": "level",
+              "value": "info",
+              "uuid": "a47864fe-ca68-4619-8446-764c9ad7f0ee"
+            },
+            {
+              "key": "service",
+              "value": "main_service",
+              "uuid": "1724a466-128b-4f33-b35d-1d92c71e6fe6"
+            },
+            {
+              "key": "page",
+              "value": "2",
+              "uuid": "67109217-9a88-471d-b6b0-945ec1e6fed4"
+            },
+            {
+              "key": "size",
+              "value": "10",
+              "uuid": "cf8a84ed-f798-4178-bf88-00ec206f7a35"
+            },
+            {
+              "key": "start_time",
+              "value": "2025-12-24T12:00:00",
+              "uuid": "22ce8fd3-81a5-4bc8-97ce-fa88a57ee6b1"
+            },
+            {
+              "key": "end_time",
+              "value": "2025-12-28T12:00:00",
+              "uuid": "3898c48a-f413-425d-8c0e-7bc4919661b1"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

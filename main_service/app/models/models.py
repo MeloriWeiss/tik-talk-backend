@@ -9,8 +9,8 @@ from .base import Base
 
 
 class AuthorType(str, enum.Enum):
-    account = "account"
-    community = "community"
+    ACCOUNT = "account"
+    COMMUNITY = "community"
 
 
 class Author(Base):
@@ -34,9 +34,9 @@ class Post(Base):
     author_id = Column(Integer, ForeignKey('authors.id'))
     author = relationship("Author")
 
-    images = Column(ARRAY(String))
+    images = Column(ARRAY(String), default=[])
     likes = Column(Integer, default=0)
-    likes_users = Column(ARRAY(String), default=[])
+    likesUsers = Column(ARRAY(String), default=[])
 
     createdAt = Column(TIMESTAMP(timezone=True), default=datetime.now(timezone.utc))
     updatedAt = Column(TIMESTAMP(timezone=True), default=datetime.now(timezone.utc))
@@ -60,8 +60,8 @@ account_to_community_subscriptions = Table(
 
 
 class Roles(enum.Enum):
-    user = "user"
-    admin = "admin"
+    USER = "user"
+    ADMIN = "admin"
 
 
 class Account(Base):
@@ -78,7 +78,7 @@ class Account(Base):
     city = Column(String(50))
     description = Column(String(300))
     hashed_password = Column(String, nullable=False)
-    roles = Column(ARRAY(Enum(Roles)), default=[Roles.user])
+    roles = Column(ARRAY(Enum(Roles)), default=[Roles.USER])
 
     author_id = Column(Integer, ForeignKey('authors.id'))
     author = relationship("Author", back_populates="account")
@@ -159,13 +159,47 @@ class Comment(Base):
     __tablename__ = 'comments'
 
     id = Column(Integer, primary_key=True, index=True)
-    author_id = Column(Integer, ForeignKey('accounts.id'))
-    postId = Column(Integer, ForeignKey('posts.id'))
     text = Column(String, nullable=False)
     commentId = Column(Integer)
 
     createdAt = Column(TIMESTAMP(timezone=True), default=datetime.now(timezone.utc))
     updatedAt = Column(TIMESTAMP(timezone=True), default=datetime.now(timezone.utc))
 
+    author_id = Column(Integer, ForeignKey('accounts.id'))
     author = relationship("Account", back_populates="comments")
+
+    postId = Column(Integer, ForeignKey('posts.id'))
     post = relationship("Post", back_populates="comments")
+
+
+class Chat(Base):
+    __tablename__ = 'chats'
+
+    id = Column(Integer, primary_key=True, index=True)
+
+    messages = relationship("Message", back_populates="chat")
+
+    userFirstId = Column(Integer, ForeignKey('accounts.id'))
+    userFirst = relationship("Account", foreign_keys="Chat.userFirstId")
+
+    userSecondId = Column(Integer, ForeignKey('accounts.id'))
+    userSecond = relationship("Account", foreign_keys="Chat.userSecondId")
+
+    createdAt = Column(TIMESTAMP(timezone=True), default=datetime.now(timezone.utc))
+    updatedAt = Column(TIMESTAMP(timezone=True), default=datetime.now(timezone.utc))
+
+
+class Message(Base):
+    __tablename__ = 'messages'
+
+    id = Column(Integer, primary_key=True, index=True)
+    userFromId = Column(Integer, nullable=False)
+    personalChatId = Column(Integer, nullable=False)
+    text = Column(String, nullable=False)
+    isRead = Column(Boolean, default=False)
+
+    createdAt = Column(TIMESTAMP(timezone=True), default=datetime.now(timezone.utc))
+    updatedAt = Column(TIMESTAMP(timezone=True), default=datetime.now(timezone.utc))
+
+    chatId = Column(Integer, ForeignKey('chats.id'))
+    chat = relationship("Chat", back_populates="messages")

@@ -5,7 +5,7 @@ from starlette.requests import Request
 from starlette.responses import Response, JSONResponse
 
 from ...database import get_async_session
-from ...routers.auth.dto.login_dto import LoginDto
+from ...routers.auth.dto.login_dto import LoginDTO
 from ...models.models import Account, Author, AuthorType
 from ...rabbitmq.call_rpc import call_rpc
 from ...shared.default_response import default_content
@@ -19,7 +19,7 @@ auth_router = APIRouter(prefix="/auth", tags=["Auth"])
 
 
 @auth_router.post("/login")
-async def login(login_data: LoginDto, response: Response, session: AsyncSession = Depends(get_async_session)):
+async def login(login_data: LoginDTO, response: Response, session: AsyncSession = Depends(get_async_session)):
     account_result = await session.execute(select(Account).where(Account.username == login_data.username))
     account = account_result.scalars().first()
 
@@ -42,12 +42,12 @@ async def login(login_data: LoginDto, response: Response, session: AsyncSession 
     return JSONResponse(
         status_code=200,
         headers=response.headers,
-        content=default_content(has_error=False, message="Successfully logged in")
+        content=default_content("Successfully logged in")
     )
 
 
 @auth_router.post("/register")
-async def register(login_data: LoginDto, response: Response, session: AsyncSession = Depends(get_async_session)):
+async def register(login_data: LoginDTO, response: Response, session: AsyncSession = Depends(get_async_session)):
     result_account = await session.execute(select(Account).where(Account.username == login_data.username))
     existing_account = result_account.scalars().first()
 
@@ -61,7 +61,7 @@ async def register(login_data: LoginDto, response: Response, session: AsyncSessi
     await session.flush()
 
     author = Author(
-        type=AuthorType.account,
+        type=AuthorType.ACCOUNT,
         account=new_account,
     )
     session.add(author)
@@ -83,17 +83,17 @@ async def register(login_data: LoginDto, response: Response, session: AsyncSessi
     return JSONResponse(
         status_code=200,
         headers=response.headers,
-        content=default_content(has_error=False, message="Successfully registered")
+        content=default_content("Successfully registered")
     )
 
 
-@auth_router.get("/logout")
+@auth_router.post("/logout")
 async def logout(request: Request, response: Response):
     access_token = request.cookies.get("access_token")
     refresh_token = request.cookies.get("refresh_token")
 
     if not access_token or not refresh_token:
-        raise UnauthorizedException(detail="Unauthorized: missing tokens")
+        raise UnauthorizedException(detail="Unauthorized: invalid token")
 
     result = await call_rpc(
         service_queue='auth_queue',
@@ -108,7 +108,7 @@ async def logout(request: Request, response: Response):
     return JSONResponse(
         status_code=200,
         headers=response.headers,
-        content=default_content(has_error=False, message="Successfully logged out")
+        content=default_content(message="Successfully logged out")
     )
 
 
@@ -117,7 +117,7 @@ async def refresh(request: Request, response: Response):
     refresh_token = request.cookies.get("refresh_token")
 
     if not refresh_token:
-        raise UnauthorizedException(detail="Unauthorized: missing tokens")
+        raise UnauthorizedException(detail="Unauthorized: invalid token")
 
     result = await call_rpc(
         service_queue='auth_queue',
@@ -129,5 +129,5 @@ async def refresh(request: Request, response: Response):
     return JSONResponse(
         status_code=200,
         headers=response.headers,
-        content=default_content(has_error=False, message="Successfully refreshed")
+        content=default_content(message="Successfully refreshed")
     )

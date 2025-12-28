@@ -1,4 +1,5 @@
 from .exception_handlers.bad_request_exception_handler import register_bad_request_exception_handler
+from .exception_handlers.forbidden_exception_handler import register_forbidden_exception_handler
 from .exception_handlers.global_exception_handler import register_global_exception_handler
 from .exception_handlers.http_default_exception_handler import register_http_default_exception_handler
 from .exception_handlers.not_found_exception_handler import register_not_found_exception_handler
@@ -9,5 +10,6 @@ def register_exception_handlers(app):
     register_unauthorized_exception_handler(app)
     register_not_found_exception_handler(app)
     register_bad_request_exception_handler(app)
+    register_forbidden_exception_handler(app)
     register_http_default_exception_handler(app)
     register_global_exception_handler(app)

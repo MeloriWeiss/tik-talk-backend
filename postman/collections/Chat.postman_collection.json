@@ -1,0 +1,53 @@
+{
+  "info": {
+    "_postman_id": "712d2a91-9253-4747-aafd-ecd1238c113a",
+    "name": "Chat",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get chats",
+      "id": "1c672589-80d6-403f-96d2-922e9e5f2af6",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseMainServiceURL}}/chat/get_my_chats",
+          "host": [
+            "{{baseMainServiceURL}}"
+          ],
+          "path": [
+            "chat",
+            "get_my_chats"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create or Get chat",
+      "id": "7273934f-5c9a-4331-af9c-7112d2282fbd",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{baseMainServiceURL}}/chat/2",
+          "host": [
+            "{{baseMainServiceURL}}"
+          ],
+          "path": [
+            "chat",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

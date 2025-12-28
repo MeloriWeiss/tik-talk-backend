@@ -1,0 +1,164 @@
+{
+  "info": {
+    "_postman_id": "a5cc8c32-6fad-4fbb-954d-3d41ec115398",
+    "name": "Community",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get communities",
+      "id": "c7f4cff1-e916-4a79-ac3a-ba4e088e402e",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseMainServiceURL}}/community?name=Angu&page=1&size=10",
+          "host": [
+            "{{baseMainServiceURL}}"
+          ],
+          "path": [
+            "community"
+          ],
+          "query": [
+            {
+              "key": "name",
+              "value": "Angu",
+              "uuid": "abed98da-0568-4230-b78d-66590dfc1c64"
+            },
+            {
+              "key": "page",
+              "value": "1",
+              "uuid": "3424f8ca-b277-44e1-a2da-28cd7b461b87"
+            },
+            {
+              "key": "size",
+              "value": "10",
+              "uuid": "ecbddaca-ed40-47b0-8037-3743bb000f26"
+            },
+            {
+              "key": "themes",
+              "value": "[\"Updated theme\"]",
+              "uuid": "3ed7cc1e-1768-4a8a-addf-da9de2b04436",
+              "disabled": true
+            },
+            {
+              "key": "tags",
+              "value": "[\"Updated tag\"]",
+              "uuid": "499c58b9-3342-49cf-9056-e8ffba632639",
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get community",
+      "id": "19095592-1f20-4101-b606-26f9bec2f87f",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseMainServiceURL}}/community/4",
+          "host": [
+            "{{baseMainServiceURL}}"
+          ],
+          "path": [
+            "community",
+            "4"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update community",
+      "id": "137b4c3a-da05-48f5-ac89-6a175cec3496",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"Angular updated name\",\r\n    \"themes\": [\"Updated theme\"],\r\n    \"tags\": [\"Updated tag\"],\r\n    \"description\": \"Updated desc\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseMainServiceURL}}/community/4",
+          "host": [
+            "{{baseMainServiceURL}}"
+          ],
+          "path": [
+            "community",
+            "4"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create community",
+      "id": "b9b4eecd-f0fc-4316-9437-1b767141535b",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"Community name\",\r\n    \"themes\": [\"Programming\"],\r\n    \"tags\": [\"Technology\", \"Sport\"],\r\n    \"description\": \"Community description\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseMainServiceURL}}/community",
+          "host": [
+            "{{baseMainServiceURL}}"
+          ],
+          "path": [
+            "community"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete community",
+      "id": "a9160d6f-3ce1-45de-ae95-ae8ca5fbab7b",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseMainServiceURL}}/community/6",
+          "host": [
+            "{{baseMainServiceURL}}"
+          ],
+          "path": [
+            "community",
+            "6"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

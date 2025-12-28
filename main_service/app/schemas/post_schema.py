@@ -1,47 +1,55 @@
+from datetime import datetime
+from typing import Generic, TypeVar
+
 from pydantic import BaseModel
 
-from .author_schema import ShortAuthorAccountSchema, ShortAuthorCommunitySchema, ShortAuthorCommunitySchemaAdminless
-from ..schemas.author_schema import AuthorAccountSchema, AuthorCommunitySchema
+from .comment_schema import CommentSchema
+
+AuthorT = TypeVar('AuthorT')
 
 
-class PostAccountSchema(BaseModel):
+class PostSchema(BaseModel, Generic[AuthorT]):
     id: int
     content: str
-    author: AuthorAccountSchema
+    author: AuthorT
+    title: str
+    images: list[str]
+    createdAt: datetime
+    updatedAt: datetime
+    likes: int
+    likesUsers: list[str]
+    comments: list[CommentSchema]
 
     class Config:
         from_attributes = True
 
 
-class ShortPostAccountSchema(BaseModel):
+class PostSchemaAuthorAdminless(BaseModel, Generic[AuthorT]):
     id: int
     content: str
-    author: ShortAuthorAccountSchema
+    author: AuthorT
+    title: str
+    images: list[str]
+    createdAt: datetime
+    updatedAt: datetime
+    likes: int
+    likesUsers: list[str]
+    comments: list[CommentSchema]
 
     class Config:
         from_attributes = True
 
 
-class PostCommunitySchema(BaseModel):
+class PostSchemaAuthorless(BaseModel):
     id: int
     content: str
-    author: AuthorCommunitySchema
-
-    class Config:
-        from_attributes = True
-
-class ShortPostCommunitySchema(BaseModel):
-    id: int
-    content: str
-    author: ShortAuthorCommunitySchema
-
-    class Config:
-        from_attributes = True
-
-class ShortPostCommunitySchemaAdminless(BaseModel):
-    id: int
-    content: str
-    author: ShortAuthorCommunitySchemaAdminless
+    title: str
+    images: list[str]
+    createdAt: datetime
+    updatedAt: datetime
+    likes: int
+    likesUsers: list[str]
+    comments: list[CommentSchema]
 
     class Config:
         from_attributes = True

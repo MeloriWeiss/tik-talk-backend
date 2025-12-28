@@ -1,0 +1,197 @@
+{
+  "info": {
+    "_postman_id": "195df559-aa33-40f0-91bb-b496b7940972",
+    "name": "Account",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get accounts",
+      "id": "705b6fe3-2d8c-4656-bd52-87d1f92d83f7",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseMainServiceURL}}/account",
+          "host": [
+            "{{baseMainServiceURL}}"
+          ],
+          "path": [
+            "account"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get account",
+      "id": "78f2a334-294d-414e-a7a5-3b19f59a993b",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseMainServiceURL}}/account/1",
+          "host": [
+            "{{baseMainServiceURL}}"
+          ],
+          "path": [
+            "account",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get me",
+      "id": "c2dc2e62-69d0-4b85-ae19-38115d053679",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseMainServiceURL}}/account/me",
+          "host": [
+            "{{baseMainServiceURL}}"
+          ],
+          "path": [
+            "account",
+            "me"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update me",
+      "id": "acc90eb5-d916-4c18-9d9b-680f68495a51",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"firstName\": \"Alice\",\r\n    \"lastName\": \"Alice\",\r\n    \"stack\": [\"Angular\", \"React\"],\r\n    \"city\": \"Moscow\",\r\n    \"description\": \"Angular frontend developer\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseMainServiceURL}}/account/me",
+          "host": [
+            "{{baseMainServiceURL}}"
+          ],
+          "path": [
+            "account",
+            "me"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get subscriptions",
+      "id": "07f48ba9-d47f-4059-ae7a-e89ad55ccb8e",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseMainServiceURL}}/account/subscriptions/1",
+          "host": [
+            "{{baseMainServiceURL}}"
+          ],
+          "path": [
+            "account",
+            "subscriptions",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get subscribers",
+      "id": "f8d121fc-3eed-425f-a984-87e28329b8ea",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseMainServiceURL}}/account/subscribers/2",
+          "host": [
+            "{{baseMainServiceURL}}"
+          ],
+          "path": [
+            "account",
+            "subscribers",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Subscribe",
+      "id": "9b371ceb-7f5f-48f6-94bc-d4fafb260418",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{baseMainServiceURL}}/account/subscribe/2",
+          "host": [
+            "{{baseMainServiceURL}}"
+          ],
+          "path": [
+            "account",
+            "subscribe",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Unsubscribe",
+      "id": "43ff6391-82be-402f-8bea-3ba57f62169b",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseMainServiceURL}}/account/subscribe/2",
+          "host": [
+            "{{baseMainServiceURL}}"
+          ],
+          "path": [
+            "account",
+            "subscribe",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

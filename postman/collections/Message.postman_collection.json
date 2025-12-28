@@ -1,0 +1,39 @@
+{
+  "info": {
+    "_postman_id": "b2fc7e7f-0c10-4f9b-94ec-650dcb46d850",
+    "name": "Message",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Send message",
+      "id": "f1401944-e186-407b-993b-87027ff2a00b",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{baseMainServiceURL}}/message/send/1?message=new test message 3",
+          "host": [
+            "{{baseMainServiceURL}}"
+          ],
+          "path": [
+            "message",
+            "send",
+            "1"
+          ],
+          "query": [
+            {
+              "key": "message",
+              "value": "new test message 3",
+              "uuid": "08909427-d8ef-4ebd-b1c9-2544d2b4fbf9"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

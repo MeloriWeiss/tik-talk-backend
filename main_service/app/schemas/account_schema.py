@@ -1,14 +1,12 @@
+from datetime import datetime
+from typing import TypeVar, Generic
+
 from pydantic import BaseModel
 
-class PostAccountSchemaAuthorless(BaseModel):
-    id: int
-    content: str
-
-    class Config:
-        from_attributes = True
+PostT = TypeVar('PostT')
 
 
-class AccountSchema(BaseModel):
+class AccountSchema(BaseModel, Generic[PostT]):
     id: int
     username: str
     avatar_url: str | None
@@ -20,14 +18,13 @@ class AccountSchema(BaseModel):
     city: str | None
     description: str | None
     roles: list[str]
-    # createdAt: datetime
-    # updatedAt: datetime
-    #
-    # comments: list
-    posts: list[PostAccountSchemaAuthorless]
+    createdAt: datetime
+    updatedAt: datetime
+    posts: list[PostT]
 
     class Config:
         from_attributes = True
+
 
 class ShortAccountSchema(BaseModel):
     id: int
@@ -41,10 +38,8 @@ class ShortAccountSchema(BaseModel):
     city: str | None
     description: str | None
     roles: list[str]
-    # createdAt: datetime
-    # updatedAt: datetime
-    #
-    # comments: list
+    createdAt: datetime
+    updatedAt: datetime
 
     class Config:
         from_attributes = True

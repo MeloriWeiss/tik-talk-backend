@@ -2,12 +2,13 @@ from pydantic import BaseModel
 
 from .account_schema import AccountSchema, ShortAccountSchema
 from .community_schema import CommunityShema, ShortCommunitySchema, ShortCommunitySchemaAdminless
+from .post_schema import PostSchemaAuthorless
 
 
 class AuthorAccountSchema(BaseModel):
     id: int
     type: str
-    account: AccountSchema | None
+    account: AccountSchema[PostSchemaAuthorless] | None
 
     class Config:
         from_attributes = True
@@ -24,7 +25,7 @@ class ShortAuthorAccountSchema(BaseModel):
 class AuthorCommunitySchema(BaseModel):
     id: int
     type: str
-    community: CommunityShema | None
+    community: CommunityShema[PostSchemaAuthorless] | None
 
     class Config:
         from_attributes = True
